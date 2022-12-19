@@ -23,7 +23,7 @@ Cypress.Commands.add('selectYoutubeFromDropdown', dropdown => {
     cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
     cy.get('#email').type('test@email.com').should('have.value','test@email.com') 
     cy.get('#phone').type('123456789').should('have.value','123456789')
-    cy.get('#product').select('youtube').should('have.value', 'youtube') //select text 'Youtube' in the dropdown (select by the "text")
+    cy.get('#product').select('Youtube').should('have.value', 'youtube') //select text 'Youtube' in the dropdown (select by the "text")
     cy.get('#open-text-area').type('decription test')
     cy.contains('button', 'Enviar').click()  
     
@@ -58,8 +58,49 @@ Cypress.Commands.add('selectOptionFeedback', () => {
     cy.contains('button', 'Enviar').click()  
 })
 
-// Cypress.Commands.add('selectEachRadioButton', () => {
-//     cy.get('.field').each(() => {
-//         should('be.checked')
-//     })
-// })
+Cypress.Commands.add('checkEachRadioButton', () => {
+    cy.get('input[type="radio"]')
+        .should('have.length', 3)
+        .each(function($radio) { //using each and wrap one can 
+            cy.wrap($radio).check()
+            cy.wrap($radio).should('be.checked')
+        })
+})
+
+//CHECKBOX 
+Cypress.Commands.add('checkBothCheckboxes', () => {
+    cy.get('input[type="checkbox"]')
+        .check()
+        .last()
+        .uncheck()
+        .should('not.be.checked')
+})
+
+Cypress.Commands.add('displayErrorAlertMessage', () => {
+    cy.get('#firstName').type('FirtNameTest').should('have.value', 'FirtNameTest')
+    cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
+    cy.get('#email').type('test@email.com').should('have.value','test@email.com') 
+    cy.get('#open-text-area').type('decription test')
+    cy.get('#phone-checkbox')
+        .check()
+        .should('be.checked')
+    cy.get('button[type="submit"]').click()
+    cy.get('.error').should('be.visible')
+})
+
+//FILE UPLOADING
+Cypress.Commands.add('uploadingFile', () => {
+    cy.get('#file-upload')
+        .selectFile('cypress/fixtures/file-example.pdf')
+        .then(input => {
+            expect(input[0].files[0].name).to.equal('file-example.pdf')
+        })
+})
+
+Cypress.Commands.add('uuploadingFileDragAndDrop', () => {
+    cy.get('#file-upload')
+        .selectFile('cypress/fixtures/file-example.pdf')
+        .then(input => {
+            expect(input[0].files[0].name).to.equal('file-example.pdf')
+        })
+})

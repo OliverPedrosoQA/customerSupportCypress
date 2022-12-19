@@ -71,29 +71,52 @@ describe('Central de Atendimento ao Cliente', function() {
    // MANDATORY fields test cases
   context('GUI Custom Commands - Mandatory Fields', () => {
       it('Exercise 7- Fills form and send it', () => {
-          cy.fillMandatoryFieldsAndSubmit()
+        cy.fillMandatoryFieldsAndSubmit()
       })
       it('Exercise 8- Use Cy.contains() to indentify buttons', () => {
-          cy.useCyContainsToClickButton()
+        cy.useCyContainsToClickButton()
       })
   })
   // DROPDOWN field test cases
   context('GUI Custom Commands - Dropdown Field', () => { 
       it('Select Youtube from dropdown field by the text', () => {
-          cy.selectYoutubeFromDropdown()
+        cy.selectYoutubeFromDropdown()
       })
       it('Exercise 1- Select Mentoria from dropdown field by the value', () => {
-          cy.selectMentoriaFromDropdown()
+        cy.selectMentoriaFromDropdown()
       })
       it('Exercise 2- Select Blog from dropdown field by the index', () => {
-          cy.selectBlogFromDropdown()
+        cy.selectBlogFromDropdown()
       })
   })
   //RADIO BUTTON test cases
   context('GUI Custom Commands - Radio Button', () => {
-      it.only('Check the radio button "feedback"', () => {
-          cy.selectOptionFeedback()
+      it('Check the radio button "feedback"', () => {
+        cy.selectOptionFeedback()
+      })
+      it('Check each radio button', () => {
+        cy.checkEachRadioButton()
       })
   }) 
+
+  //CHECKBOX test cases
+context('GUI Custom Commands - Checkbox', () => {
+    it('Check both checkboxes and uncheck the last one', () => {
+      cy.checkBothCheckboxes()
+    })
+    it('Show alert message when phone number field is mandatory but is not filled out', () => {
+      cy.displayErrorAlertMessage()
+    })
+})
+
+// FILE UPLOADING
+context('GUI Custom Commands - Uploading Files', () => {
+  it('Uploading File through selectFile', () => {
+    cy.uploadingFile()
+  })
+  it.only('Uploading File through Drag And Drop', () => {
+    cy.uploadingFileDragAndDrop()
+  })
+})
 
 })
