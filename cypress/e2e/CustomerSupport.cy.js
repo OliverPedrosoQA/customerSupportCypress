@@ -114,7 +114,7 @@ context('GUI Custom Commands - Uploading Files', () => {
   it('Uploading File through selectFile', () => {
     cy.uploadingFile()
   })
-  it.only('Uploading File through Drag And Drop', () => {
+  it('Uploading File through Drag And Drop', () => {
     cy.uploadingFileDragAndDrop()
   })
 })

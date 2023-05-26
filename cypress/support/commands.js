@@ -23,7 +23,7 @@ Cypress.Commands.add('selectYoutubeFromDropdown', dropdown => {
     cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
     cy.get('#email').type('test@email.com').should('have.value','test@email.com') 
     cy.get('#phone').type('123456789').should('have.value','123456789')
-    cy.get('#product').select('Youtube').should('have.value', 'youtube') //select text 'Youtube' in the dropdown (select by the "text")
+    cy.get('#product').select('YouTube').should('have.value', 'youtube') //select text 'Youtube' in the dropdown (select by the "text")
     cy.get('#open-text-area').type('decription test')
     cy.contains('button', 'Enviar').click()  
     
@@ -53,7 +53,7 @@ Cypress.Commands.add('selectOptionFeedback', () => {
     cy.get('#email').type('test@email.com').should('have.value','test@email.com') 
     cy.get('#phone').type('123456789').should('have.value','123456789')
     cy.get('#product').select(1).should('have.value', 'blog')
-    cy.get('input[type="radio"] [value="feedback"]').check().should('have.value', 'feedback') //check the option Feedback out of the 3 possible options by the value
+    cy.get('input[type="radio"]').check('feedback').should('have.value', 'feedback') //check the option Feedback out of the 3 possible options by the value
     cy.get('#open-text-area').type('decription test')
     cy.contains('button', 'Enviar').click()  
 })
@@ -97,7 +97,7 @@ Cypress.Commands.add('uploadingFile', () => {
         })
 })
 
-Cypress.Commands.add('uuploadingFileDragAndDrop', () => {
+Cypress.Commands.add('uploadingFileDragAndDrop', () => {
     cy.get('#file-upload')
         .selectFile('cypress/fixtures/file-example.pdf')
         .then(input => {
