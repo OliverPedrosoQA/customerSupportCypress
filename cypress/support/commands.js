@@ -98,9 +98,19 @@ Cypress.Commands.add('uploadingFile', () => {
 })
 
 Cypress.Commands.add('uploadingFileDragAndDrop', () => {
-    cy.get('#file-upload')
-        .selectFile('cypress/fixtures/file-example.pdf')
+    cy.get('input[type="file"]#file-upload')
+        .selectFile('cypress/fixtures/file-example.pdf', { action: 'drag-drop'})
         .then(input => {
             expect(input[0].files[0].name).to.equal('file-example.pdf')
+            console.log()
+        })
+    })
+Cypress.Commands.add('uploadingFIleWithAlias', () => {
+   cy.fixture('example.json').as('sampleFile')
+    cy.get('input[type="file"]#file-upload')
+        .selectFile('@sampleFile')
+        .should(function($input) {
+            expect($input[0].files[0].name).to.equal('example.json')
+        console.log()
         })
 })

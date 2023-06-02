@@ -117,6 +117,10 @@ context('GUI Custom Commands - Uploading Files', () => {
   it('Uploading File through Drag And Drop', () => {
     cy.uploadingFileDragAndDrop()
   })
-})
 
+
+it('Uploading File With an Alias', () => {
+  cy.uploadingFIleWithAlias()
+  })
+})
 })
