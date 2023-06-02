@@ -113,4 +113,13 @@ Cypress.Commands.add('uploadingFIleWithAlias', () => {
             expect($input[0].files[0].name).to.equal('example.json')
         console.log()
         })
+
+//VALIDATING HIPERLINK THAT OPENS IN ANOTHER TAB
+Cypress.Commands.add('accessingPrivacyPage', () => {
+    cy.get('#privacy a').should('have.attr', 'target', '_blank') //the purpose of this test is to validate if the link will open in another tab, by validating the target = _blank is enought and there is no need to click the link and really check if opened in another tab
+})
+
+Cypress.Commands.add('test', () => {
+    cy.get('a[href="/privacy"]').should('have.attr', 'target', '_blank')
+         })
 })

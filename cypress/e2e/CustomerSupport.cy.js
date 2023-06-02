@@ -72,7 +72,7 @@ describe('Central de Atendimento ao Cliente', function() {
   context('GUI Custom Commands - Mandatory Fields', () => {
       it('Exercise 7- Fills form and send it', () => {
         cy.fillMandatoryFieldsAndSubmit()
-      })
+      }) 
       it('Exercise 8- Use Cy.contains() to indentify buttons', () => {
         cy.useCyContainsToClickButton()
       })
@@ -100,7 +100,7 @@ describe('Central de Atendimento ao Cliente', function() {
   }) 
 
   //CHECKBOX test cases
-context('GUI Custom Commands - Checkbox', () => {
+  context('GUI Custom Commands - Checkbox', () => {
     it('Check both checkboxes and uncheck the last one', () => {
       cy.checkBothCheckboxes()
     })
@@ -111,16 +111,22 @@ context('GUI Custom Commands - Checkbox', () => {
 
 // FILE UPLOADING
 context('GUI Custom Commands - Uploading Files', () => {
-  it('Uploading File through selectFile', () => {
-    cy.uploadingFile()
-  })
-  it('Uploading File through Drag And Drop', () => {
-    cy.uploadingFileDragAndDrop()
-  })
+    it('Uploading File through selectFile', () => {
+      cy.uploadingFile()
+    })
+    it('Uploading File through Drag And Drop', () => {
+      cy.uploadingFileDragAndDrop()
+    })
+    it('Uploading File With an Alias', () => {
+      cy.uploadingFIleWithAlias()
+    })
+})
 
+// VALIDATING LINK THAT OPENS IN DIFFERENT TAB
 
-it('Uploading File With an Alias', () => {
-  cy.uploadingFIleWithAlias()
-  })
+  context('GUI Custom Commands - Validating Hiperlink', () => {
+    it.only('Accessing Privacy Page (Hiperlink)', () => {
+      cy.test()
+    })
 })
 })
