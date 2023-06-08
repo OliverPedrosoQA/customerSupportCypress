@@ -126,7 +126,7 @@ context('GUI Custom Commands - Uploading Files', () => {
 
   context('GUI Custom Commands - Validating Hiperlink', () => {
     it.only('Accessing Privacy Page (Hiperlink)', () => {
-      cy.test()
+      cy.accessingPrivacyPage()
     })
 })
 })
