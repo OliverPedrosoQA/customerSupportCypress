@@ -125,8 +125,11 @@ context('GUI Custom Commands - Uploading Files', () => {
 // VALIDATING LINK THAT OPENS IN DIFFERENT TAB
 
   context('GUI Custom Commands - Validating Hiperlink', () => {
-    it.only('Accessing Privacy Page (Hiperlink)', () => {
+    it('Accessing Privacy Page (Hiperlink)', () => {
       cy.accessingPrivacyPage()
     })
+    it.only("Accessing Privacy Page Removing Taget Attribute"), () => {
+      cy.accessingPrivacyPageRemovingTagetAttribute()
+    }
 })
 })

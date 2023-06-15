@@ -119,3 +119,9 @@ Cypress.Commands.add('uploadingFIleWithAlias', () => {
 Cypress.Commands.add('accessingPrivacyPage', () => {
     cy.get('#privacy a').should('have.attr', 'target', '_blank') //the purpose of this test is to validate if the link will open in another tab, by validating the target = _blank is enought and there is no need to click the link and really check if opened in another tab
 })
+
+Cypress.Commands.add('accessingPrivacyPageRemovingTagetAttribute', () => {
+    cy.get('#privacy a')
+        .invoke('removeAttr', 'target')
+            .click()
+})
