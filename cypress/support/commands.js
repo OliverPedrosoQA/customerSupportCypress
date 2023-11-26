@@ -1,3 +1,5 @@
+
+//CUSTOMER SUPPORT SPEC
 //MANDATORY FIELDS
 Cypress.Commands.add('fillMandatoryFieldsAndSubmit', user => {
     cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
@@ -6,7 +8,7 @@ Cypress.Commands.add('fillMandatoryFieldsAndSubmit', user => {
     cy.get('#phone').type('123456789').should('have.value','123456789')
     cy.get('#open-text-area').type('decription test')
     cy.contains('Enviar').click()//cy.get('button[type="submit"]').click() //'TagName[attribute="value"]' 
-    cy.get('.success').should('be.visible')
+    cy.get('.success').should('be.visible') 
 })
 Cypress.Commands.add('useCyContainsToClickButton', user => {
     cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
@@ -77,7 +79,7 @@ Cypress.Commands.add('checkBothCheckboxes', () => {
 })
 
 Cypress.Commands.add('displayErrorAlertMessage', () => {
-    cy.get('#firstName').type('FirtNameTest').should('have.value', 'FirtNameTest')
+    cy.get('#firstName').type('FirstNameTest').should('have.value', 'FirstNameTest')
     cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
     cy.get('#email').type('test@email.com').should('have.value','test@email.com') 
     cy.get('#open-text-area').type('decription test')
@@ -116,12 +118,29 @@ Cypress.Commands.add('uploadingFIleWithAlias', () => {
     })
 
 //VALIDATING HIPERLINK THAT OPENS IN ANOTHER TAB
-Cypress.Commands.add('accessingPrivacyPage', () => {
+Cypress.Commands.add('validatingTargetPrivacyPage', () => {
     cy.get('#privacy a').should('have.attr', 'target', '_blank') //the purpose of this test is to validate if the link will open in another tab, by validating the target = _blank is enought and there is no need to click the link and really check if opened in another tab
 })
 
-Cypress.Commands.add('accessingPrivacyPageRemovingTagetAttribute', () => {
+Cypress.Commands.add('removingTagetAttributePrivacyPage', () => {
     cy.get('#privacy a')
         .invoke('removeAttr', 'target')
-            .click()
+        .click()                    
+})
+
+Cypress.Commands.add('accessingPrivacyPage', () => {
+    cy.get('#privacy a')
+        .invoke('removeAttr', 'target')
+        .click()
+})
+
+Cypress.Commands.add('accessPrivacyPageRemovingTarget', () => {
+    cy.get('#privacy a').invoke('removeAttr', 'target').click()
+
+})
+
+//PRIVACY SPEC
+Cypress.Commands.add('testPrivacyPage', () => {
+    cy.get('#title').should('be.visible', 'CAC TAT - Política de privacidade') 
+    cy.contains('Talking About Testing')
 })

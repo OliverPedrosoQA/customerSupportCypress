@@ -2,13 +2,13 @@
 
 describe('Central de Atendimento ao Cliente', function() {
   beforeEach(function() {
-      cy.visit('./src/index.html')
+      cy.visit('./src/index.html') 
   })
 
   it('Validate application title', function() { 
       cy.title().should('be.equal', 'Central de Atendimento ao Cliente TAT')
   })
-  it('Exercise 0- Filling out mandatory fields and submitting form', function() {
+  it('Filling out mandatory fields and submitting form', function() {
       cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
       cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
       cy.get('#email').type('test@email.com').should('have.value','test@email.com') //CSS selector uses # for id and a dot for class
@@ -17,7 +17,7 @@ describe('Central de Atendimento ao Cliente', function() {
       cy.get('button[type="submit"]').click() //'TagName[attribute="value"]' 
       cy.get('.success').should('be.visible')
   })
-  it('Exercise 1- Applying delay 0 from the Option object', function() {
+  it('Applying delay 0 from the Option object', function() {
       const longText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
       cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
       cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
@@ -27,7 +27,7 @@ describe('Central de Atendimento ao Cliente', function() {
       cy.get('button[type="submit"]').click() 
       cy.get('.success').should('be.visible')
   })
-  it('Exercise 2- Validating error message by sending email in wrong format', function() {
+  it('Validating error message by sending email in wrong format', function() {
       cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
       cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
       cy.get('#email').type('test_email.com').should('have.value','test_email.com') /
@@ -36,26 +36,25 @@ describe('Central de Atendimento ao Cliente', function() {
       cy.get('button[type="submit"]').click()
       cy.get('.error').should('be.visible')
   })
-  it('Exercise 3- Validating phone number field: non numeric characters', function() {
+  it('Validating phone number field: non numeric characters', function() {
       cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
       cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
-      cy.get('#email').type('test_email.com').should('have.value','test_email.com') /
+      cy.get('#email').type('test_email.com').should('have.value','test_email.com') 
       cy.get('#phone').type('testtest').should('have.value','')
       cy.get('#open-text-area').type('decription test')
       cy.get('button[type="submit"]').click()
       cy.get('.error').should('be.visible')
   })
-  it('Exercise 4- Validating mandatory phone number field: leaving it blank', function() {
+  it('Validating mandatory phone number field: leaving it blank', function() {
       cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
       cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
       cy.get('#email').type('test@email.com').should('have.value','test@email.com') 
-      cy.get('#phone-checkbox').click()
-      //cy.get('#phone').type('123456789').should('have.value','123456789')
+      cy.get('#phone-checkbox').click() // selecting phone number but no adding the mandatory info
       cy.get('#open-text-area').type('decription test')
       cy.get('button[type="submit"]').click() 
       cy.get('.error').should('be.visible')
   })
-  it('Exercise 5- Validating cleaning fields', function() {
+  it('Validating cleaning fields', function() {
       cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest').clear()
       cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest').clear()
       cy.get('#email').type('test@email.com').should('have.value','test@email.com') .clear()
@@ -64,16 +63,16 @@ describe('Central de Atendimento ao Cliente', function() {
       cy.get('button[type="submit"]').click()
       cy.get('.error').should('be.visible')
   })
-  it('Exercise 6- Validating mandatory fields', function() {
+  it('Validating mandatory fields', function() {
       cy.get('button[type="submit"]').click() 
       cy.get('.error').should('be.visible')
   })
    // MANDATORY fields test cases
   context('GUI Custom Commands - Mandatory Fields', () => {
-      it('Exercise 7- Fills form and send it', () => {
+      it('Filling form and submitting it', () => {
         cy.fillMandatoryFieldsAndSubmit()
       }) 
-      it('Exercise 8- Use Cy.contains() to indentify buttons', () => {
+      it('Use Cy.contains() to indentify buttons', () => {
         cy.useCyContainsToClickButton()
       })
   })
@@ -82,10 +81,10 @@ describe('Central de Atendimento ao Cliente', function() {
       it('Select Youtube from dropdown field by the text', () => {
         cy.selectYoutubeFromDropdown()
       })
-      it('Exercise 1- Select Mentoria from dropdown field by the value', () => {
+      it('Select Mentoria from dropdown field by the value', () => {
         cy.selectMentoriaFromDropdown()
       })
-      it('Exercise 2- Select Blog from dropdown field by the index', () => {
+      it('Select Blog from dropdown field by the index', () => {
         cy.selectBlogFromDropdown()
       })
   })
@@ -120,16 +119,22 @@ context('GUI Custom Commands - Uploading Files', () => {
     it('Uploading File With an Alias', () => {
       cy.uploadingFIleWithAlias()
     })
-})
+  })
 
-// VALIDATING LINK THAT OPENS IN DIFFERENT TAB
-
-  context('GUI Custom Commands - Validating Hiperlink', () => {
-    it('Accessing Privacy Page (Hiperlink)', () => {
-      cy.accessingPrivacyPage()
+  context('GUI Custom Commands - Validating the Access to the Privacy Page', () => {
+    it('Validating Target property is blank - Privacy Page)', () => {
+      cy.validatingTargetPrivacyPage()
     })
-    it.only("Accessing Privacy Page Removing Taget Attribute"), () => {
-      cy.accessingPrivacyPageRemovingTagetAttribute()
-    }
-})
+    it("Removing Taget Attribute - Privacy Page", () => {
+      cy.removingTagetAttributePrivacyPage()
+    })
+  
+    it('Acessing Privacy Page', () => {
+      cy.accessingPrivacyPage();
+    })
+  
+    it('Acessing Privacy Page Removing Target Property', () => {
+      cy.accessPrivacyPageRemovingTarget();
+    })
+  })
 })
