@@ -5,136 +5,99 @@ describe('Central de Atendimento ao Cliente', function() {
       cy.visit('./src/index.html') 
   })
 
+context('App Title Validation', () => {
   it('Validate application title', function() { 
-      cy.title().should('be.equal', 'Central de Atendimento ao Cliente TAT')
+    cy.validateAppTitle()
   })
-  it('Filling out mandatory fields and submitting form', function() {
-      cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
-      cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
-      cy.get('#email').type('test@email.com').should('have.value','test@email.com') //CSS selector uses # for id and a dot for class
-      cy.get('#phone').type('123456789').should('have.value','123456789')
-      cy.get('#open-text-area').type('decription test')
-      cy.get('button[type="submit"]').click() //'TagName[attribute="value"]' 
-      cy.get('.success').should('be.visible')
-  })
-  it('Applying delay 0 from the Option object', function() {
-      const longText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-      cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
-      cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
-      cy.get('#email').type('test@email.com').should('have.value','test@email.com') 
-      cy.get('#phone').type('123456789').should('have.value','123456789')
-      cy.get('#open-text-area').type(longText, {delay:0})
-      cy.get('button[type="submit"]').click() 
-      cy.get('.success').should('be.visible')
-  })
-  it('Validating error message by sending email in wrong format', function() {
-      cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
-      cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
-      cy.get('#email').type('test_email.com').should('have.value','test_email.com') /
-      cy.get('#phone').type('123456789').should('have.value','123456789')
-      cy.get('#open-text-area').type('decription test')
-      cy.get('button[type="submit"]').click()
-      cy.get('.error').should('be.visible')
-  })
-  it('Validating phone number field: non numeric characters', function() {
-      cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
-      cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
-      cy.get('#email').type('test_email.com').should('have.value','test_email.com') 
-      cy.get('#phone').type('testtest').should('have.value','')
-      cy.get('#open-text-area').type('decription test')
-      cy.get('button[type="submit"]').click()
-      cy.get('.error').should('be.visible')
-  })
-  it('Validating mandatory phone number field: leaving it blank', function() {
-      cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
-      cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
-      cy.get('#email').type('test@email.com').should('have.value','test@email.com') 
-      cy.get('#phone-checkbox').click() // selecting phone number but no adding the mandatory info
-      cy.get('#open-text-area').type('decription test')
-      cy.get('button[type="submit"]').click() 
-      cy.get('.error').should('be.visible')
-  })
-  it('Validating cleaning fields', function() {
-      cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest').clear()
-      cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest').clear()
-      cy.get('#email').type('test@email.com').should('have.value','test@email.com') .clear()
-      cy.get('#phone').type('123456789').should('have.value','123456789').clear()
-      cy.get('#open-text-area').type('decription test').clear()
-      cy.get('button[type="submit"]').click()
-      cy.get('.error').should('be.visible')
-  })
-  it('Validating mandatory fields', function() {
-      cy.get('button[type="submit"]').click() 
-      cy.get('.error').should('be.visible')
-  })
-   // MANDATORY fields test cases
-  context('GUI Custom Commands - Mandatory Fields', () => {
-      it('Filling form and submitting it', () => {
-        cy.fillMandatoryFieldsAndSubmit()
-      }) 
-      it('Use Cy.contains() to indentify buttons', () => {
-        cy.useCyContainsToClickButton()
-      })
-  })
-  // DROPDOWN field test cases
-  context('GUI Custom Commands - Dropdown Field', () => { 
-      it('Select Youtube from dropdown field by the text', () => {
-        cy.selectYoutubeFromDropdown()
-      })
-      it('Select Mentoria from dropdown field by the value', () => {
-        cy.selectMentoriaFromDropdown()
-      })
-      it('Select Blog from dropdown field by the index', () => {
-        cy.selectBlogFromDropdown()
-      })
-  })
-  //RADIO BUTTON test cases
-  context('GUI Custom Commands - Radio Button', () => {
-      it('Check the radio button "feedback"', () => {
-        cy.selectOptionFeedback()
-      })
-      it('Check each radio button', () => {
-        cy.checkEachRadioButton()
-      })
-  }) 
-
-  //CHECKBOX test cases
-  context('GUI Custom Commands - Checkbox', () => {
-    it('Check both checkboxes and uncheck the last one', () => {
-      cy.checkBothCheckboxes()
-    })
-    it('Show alert message when phone number field is mandatory but is not filled out', () => {
-      cy.displayErrorAlertMessage()
-    })
 })
 
-// FILE UPLOADING
-context('GUI Custom Commands - Uploading Files', () => {
-    it('Uploading File through selectFile', () => {
-      cy.uploadingFile()
-    })
-    it('Uploading File through Drag And Drop', () => {
-      cy.uploadingFileDragAndDrop()
-    })
-    it('Uploading File With an Alias', () => {
-      cy.uploadingFIleWithAlias()
-    })
+ context('Mandatory Fields', () => {
+  it('Filling out mandatory fields and submitting form', () => {
+    cy.submitFormOnlyMandatoryFields()
   })
+  it('Filling form and submitting it', () => {
+    cy.fillMandatoryFieldsAndSubmit()
+  }) 
+  it('Use Cy.contains() to indentify buttons', () => {
+    cy.useCyContainsToClickButton()
+  })
+  it('Applying delay 0 of Option object', function() {
+    cy.textFieldWithDelayZero()
+  })
+  it('Validating cleaning fields', function() {
+    cy.cleaningFields()
+  })
+})
 
-  context('GUI Custom Commands - Validating the Access to the Privacy Page', () => {
-    it('Validating Target property is blank - Privacy Page)', () => {
-      cy.validatingTargetPrivacyPage()
-    })
-    it("Removing Taget Attribute - Privacy Page", () => {
-      cy.removingTagetAttributePrivacyPage()
-    })
-  
-    it('Acessing Privacy Page', () => {
-      cy.accessingPrivacyPage();
-    })
-  
-    it('Acessing Privacy Page Removing Target Property', () => {
-      cy.accessPrivacyPageRemovingTarget();
-    })
+context('Dropdown Field', () => { 
+  it('Select Youtube from dropdown field by the text', () => {
+    cy.selectYoutubeFromDropdown()
+  })
+  it('Select Mentoria from dropdown field by the value', () => {
+    cy.selectMentoriaFromDropdown()
+  })
+  it('Select Blog from dropdown field by the index', () => {
+    cy.selectBlogFromDropdown()
+  })
+})
+ 
+context('Radio Button', () => {
+  it('Check the radio button "feedback"', () => {
+     cy.selectOptionFeedback()
+  })
+  it('Check each radio button', () => {
+     cy.checkEachRadioButton()
+  })
+}) 
+
+context('Checkbox Validations', () => {
+  it('Check both checkboxes and uncheck the last one', () => {
+    cy.checkBothCheckboxes()
+  })
+  it('Show alert message when phone number field is mandatory but is not filled out', () => {
+    cy.displayErrorAlertMessage()
+  })
+})
+
+context('Uploading Files', () => {
+  it('Uploading File through selectFile', () => {
+    cy.uploadingFile()
+  })
+  it('Uploading File through Drag And Drop', () => {
+    cy.uploadingFileDragAndDrop()
+  })
+  it('Uploading File With an Alias', () => {
+    cy.uploadingFIleWithAlias()
+  })
+})
+
+ context('Validating the Access to the Privacy Page', () => {
+  it('Validating Target property is blank - Privacy Page)', () => {
+    cy.validatingTargetPrivacyPage()
+  })
+  it("Removing Taget Attribute - Privacy Page", () => {
+    cy.removingTagetAttributePrivacyPage()
+  })  
+  it('Acessing Privacy Page', () => {
+    cy.accessingPrivacyPage();
+  })  
+  it('Acessing Privacy Page Removing Target Property', () => {
+    cy.accessPrivacyPageRemovingTarget();
+  })
+ })
+
+context('Validating Error Messages', () => {
+  it('Validating error message by sending email in wrong format', function() {
+    cy.wrongFormatEmailErrorMessage()
+  })
+  it('Validating phone number field: non numeric characters', function() {
+     cy.nonNumericPhoneNumberErrorMessage()
+  })
+  it('Validating mandatory phone number field: leaving it blank', function() {
+    cy.blankPhoneFieldErrorMessage()
+  })
+  it('Validating mandatory fields', function() {
+    cy.errorMenssageMandatoryFieldsEmpty()
+  })
   })
 })

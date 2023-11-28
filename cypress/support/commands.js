@@ -1,6 +1,75 @@
-
 //CUSTOMER SUPPORT SPEC
-//MANDATORY FIELDS
+
+Cypress.Commands.add('validateAppTitle', () => {
+    cy.title().should('be.equal', 'Central de Atendimento ao Cliente TAT')
+})
+
+Cypress.Commands.add('submitFormOnlyMandatoryFields', () => {
+    cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
+    cy.get('#lastName').clear().type('LastNameTest').should('have.value','LastNameTest')
+    cy.get('#email').type('test@email.com').should('have.value','test@email.com') //CSS selector uses # for id and a dot for class
+    cy.get('#phone').type('123456789').should('have.value','123456789')
+    cy.get('#open-text-area').type('decription test')
+    cy.get('button[type="submit"]').click() //'TagName[attribute="value"]' 
+    cy.get('.success').should('be.visible')
+})
+
+Cypress.Commands.add('textFieldWithDelayZero', () => {
+    const longText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+    cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
+    cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
+    cy.get('#email').type('test@email.com').should('have.value','test@email.com') 
+    cy.get('#phone').type('123456789').should('have.value','123456789')
+    cy.get('#open-text-area').type(longText, {delay:0})
+    cy.get('button[type="submit"]').click() 
+    cy.get('.success').should('be.visible')
+})
+
+Cypress.Commands.add('wrongFormatEmailErrorMessage', () => {
+    cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
+    cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
+    cy.get('#email').type('test_email.com').should('have.value','test_email.com') /
+    cy.get('#phone').type('123456789').should('have.value','123456789')
+    cy.get('#open-text-area').type('decription test')
+    cy.get('button[type="submit"]').click()
+    cy.get('.error').should('be.visible')
+})
+
+Cypress.Commands.add('nonNumericPhoneNumberErrorMessage', () => {
+    cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
+    cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
+    cy.get('#email').type('test_email.com').should('have.value','test_email.com') 
+    cy.get('#phone').type('testtest').should('have.value','')
+    cy.get('#open-text-area').type('decription test')
+    cy.get('button[type="submit"]').click()
+    cy.get('.error').should('be.visible')
+})
+
+Cypress.Commands.add('blankPhoneFieldErrorMessage', () => {
+    cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
+    cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
+    cy.get('#email').type('test@email.com').should('have.value','test@email.com') 
+    cy.get('#phone-checkbox').click() // selecting phone number but no adding the mandatory info
+    cy.get('#open-text-area').type('decription test')
+    cy.get('button[type="submit"]').click() 
+    cy.get('.error').should('be.visible')
+})
+
+Cypress.Commands.add('cleaningFields', () => {
+    cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest').clear()
+    cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest').clear()
+    cy.get('#email').type('test@email.com').should('have.value','test@email.com') .clear()
+    cy.get('#phone').type('123456789').should('have.value','123456789').clear()
+    cy.get('#open-text-area').type('decription test').clear()
+    cy.get('button[type="submit"]').click()
+    cy.get('.error').should('be.visible')
+})
+
+Cypress.Commands.add('errorMenssageMandatoryFieldsEmpty', () => {
+    cy.get('button[type="submit"]').click() 
+    cy.get('.error').should('be.visible')
+})
+
 Cypress.Commands.add('fillMandatoryFieldsAndSubmit', user => {
     cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
     cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
@@ -19,7 +88,8 @@ Cypress.Commands.add('useCyContainsToClickButton', user => {
     cy.contains('button', 'Enviar').click() // cy.contains('DOM element', 'label') identify the button by the label and click it 
     cy.get('.success').should('be.visible')
 })
-//DROPDOWN FIELD
+
+
 Cypress.Commands.add('selectYoutubeFromDropdown', dropdown => {
     cy.get('#firstName').type('FirtNameTest').should('have.value', 'FirtNameTest')
     cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
@@ -30,6 +100,7 @@ Cypress.Commands.add('selectYoutubeFromDropdown', dropdown => {
     cy.contains('button', 'Enviar').click()  
     
 })
+
 Cypress.Commands.add('selectMentoriaFromDropdown', dropdown => {
     cy.get('#firstName').type('FirtNameTest').should('have.value', 'FirtNameTest')
     cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
@@ -39,6 +110,7 @@ Cypress.Commands.add('selectMentoriaFromDropdown', dropdown => {
     cy.get('#open-text-area').type('decription test')
     cy.contains('button', 'Enviar').click()  
 })
+
 Cypress.Commands.add('selectBlogFromDropdown', dropdown => {
     cy.get('#firstName').type('FirtNameTest').should('have.value', 'FirtNameTest')
     cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
@@ -48,7 +120,7 @@ Cypress.Commands.add('selectBlogFromDropdown', dropdown => {
     cy.get('#open-text-area').type('decription test')
     cy.contains('button', 'Enviar').click() 
 })
-//RADIO BUTTON 
+
 Cypress.Commands.add('selectOptionFeedback', () => {
     cy.get('#firstName').type('FirtNameTest').should('have.value', 'FirtNameTest')
     cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
@@ -69,7 +141,6 @@ Cypress.Commands.add('checkEachRadioButton', () => {
         })
 })
 
-//CHECKBOX 
 Cypress.Commands.add('checkBothCheckboxes', () => {
     cy.get('input[type="checkbox"]')
         .check()
@@ -90,7 +161,6 @@ Cypress.Commands.add('displayErrorAlertMessage', () => {
     cy.get('.error').should('be.visible')
 })
 
-//FILE UPLOADING
 Cypress.Commands.add('uploadingFile', () => {
     cy.get('#file-upload')
         .selectFile('cypress/fixtures/file-example.pdf')
@@ -117,7 +187,6 @@ Cypress.Commands.add('uploadingFIleWithAlias', () => {
         })
     })
 
-//VALIDATING HIPERLINK THAT OPENS IN ANOTHER TAB
 Cypress.Commands.add('validatingTargetPrivacyPage', () => {
     cy.get('#privacy a').should('have.attr', 'target', '_blank') //the purpose of this test is to validate if the link will open in another tab, by validating the target = _blank is enought and there is no need to click the link and really check if opened in another tab
 })
