@@ -11,7 +11,7 @@ context('App Title Validation', () => {
   })
 })
 
- context('Mandatory Fields', () => {
+ context('Mandatory Fields Validations', () => {
   it('Filling out mandatory fields and submitting form', () => {
     cy.submitFormOnlyMandatoryFields()
   })
@@ -29,7 +29,7 @@ context('App Title Validation', () => {
   })
 })
 
-context('Dropdown Field', () => { 
+context('Dropdown Field Validations', () => { 
   it('Select Youtube from dropdown field by the text', () => {
     cy.selectYoutubeFromDropdown()
   })
@@ -41,7 +41,7 @@ context('Dropdown Field', () => {
   })
 })
  
-context('Radio Button', () => {
+context('Radio Button Validations', () => {
   it('Check the radio button "feedback"', () => {
      cy.selectOptionFeedback()
   })
@@ -50,7 +50,7 @@ context('Radio Button', () => {
   })
 }) 
 
-context('Checkbox Validations', () => {
+context('Checkboxes Validations', () => {
   it('Check both checkboxes and uncheck the last one', () => {
     cy.checkBothCheckboxes()
   })
@@ -59,7 +59,7 @@ context('Checkbox Validations', () => {
   })
 })
 
-context('Uploading Files', () => {
+context('Uploading Files Validations', () => {
   it('Uploading File through selectFile', () => {
     cy.uploadingFile()
   })
@@ -71,7 +71,7 @@ context('Uploading Files', () => {
   })
 })
 
- context('Validating the Access to the Privacy Page', () => {
+ context('Privacy Page Access Validations ', () => {
   it('Validating Target property is blank - Privacy Page)', () => {
     cy.validatingTargetPrivacyPage()
   })
@@ -86,7 +86,7 @@ context('Uploading Files', () => {
   })
  })
 
-context('Validating Error Messages', () => {
+context('Error Messages Validations', () => {
   it('Validating error message by sending email in wrong format', function() {
     cy.wrongFormatEmailErrorMessage()
   })
