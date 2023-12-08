@@ -211,5 +211,5 @@ Cypress.Commands.add('accessPrivacyPageRemovingTarget', () => {
 //PRIVACY SPEC
 Cypress.Commands.add('testPrivacyPage', () => {
     cy.get('#title').should('be.visible', 'CAC TAT - Política de privacidade') 
-    cy.contains('Talking about Testing').should('be.visible')
+    cy.contains('Talking About Testing').should('be.visible')
 })
