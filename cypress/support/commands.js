@@ -5,6 +5,7 @@ Cypress.Commands.add('validateAppTitle', () => {
 })
 
 Cypress.Commands.add('submitFormOnlyMandatoryFields', () => {
+    cy.clock()
     cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
     cy.get('#lastName').clear().type('LastNameTest').should('have.value','LastNameTest')
     cy.get('#email').type('test@email.com').should('have.value','test@email.com') //CSS selector uses # for id and a dot for class
@@ -12,10 +13,14 @@ Cypress.Commands.add('submitFormOnlyMandatoryFields', () => {
     cy.get('#open-text-area').type('decription test')
     cy.get('button[type="submit"]').click() //'TagName[attribute="value"]' 
     cy.get('.success').should('be.visible')
+    cy.tick(3000)
+    cy.get('.success').should('not.be.visible') 
 })
 
 Cypress.Commands.add('textFieldWithDelayZero', () => {
     const longText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+   
+    cy.clock()
     cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
     cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
     cy.get('#email').type('test@email.com').should('have.value','test@email.com') 
@@ -23,19 +28,25 @@ Cypress.Commands.add('textFieldWithDelayZero', () => {
     cy.get('#open-text-area').type(longText, {delay:0})
     cy.get('button[type="submit"]').click() 
     cy.get('.success').should('be.visible')
+    cy.tick(3000)
+    cy.get('.success').should('not.be.visible') 
 })
 
 Cypress.Commands.add('wrongFormatEmailErrorMessage', () => {
+    cy.clock()
     cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
     cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
-    cy.get('#email').type('test_email.com').should('have.value','test_email.com') /
+    cy.get('#email').type('test_email.com').should('have.value','test_email.com') 
     cy.get('#phone').type('123456789').should('have.value','123456789')
     cy.get('#open-text-area').type('decription test')
     cy.get('button[type="submit"]').click()
     cy.get('.error').should('be.visible')
+    cy.tick(3000) //used with cy.clock() so dont need to wait 3s for the error message, it just checks the message and continues to the next step
+    cy.get('.error').should('not.be.visible')
 })
 
 Cypress.Commands.add('nonNumericPhoneNumberErrorMessage', () => {
+    cy.clock()
     cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
     cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
     cy.get('#email').type('test_email.com').should('have.value','test_email.com') 
@@ -43,9 +54,12 @@ Cypress.Commands.add('nonNumericPhoneNumberErrorMessage', () => {
     cy.get('#open-text-area').type('decription test')
     cy.get('button[type="submit"]').click()
     cy.get('.error').should('be.visible')
+    cy.tick(3000)
+    cy.get('.error').should('not.be.visible')
 })
 
 Cypress.Commands.add('blankPhoneFieldErrorMessage', () => {
+    cy.clock()
     cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
     cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
     cy.get('#email').type('test@email.com').should('have.value','test@email.com') 
@@ -53,6 +67,8 @@ Cypress.Commands.add('blankPhoneFieldErrorMessage', () => {
     cy.get('#open-text-area').type('decription test')
     cy.get('button[type="submit"]').click() 
     cy.get('.error').should('be.visible')
+    cy.tick(3000)
+    cy.get('.error').should('not.be.visible')
 })
 
 Cypress.Commands.add('cleaningFields', () => {
@@ -66,11 +82,15 @@ Cypress.Commands.add('cleaningFields', () => {
 })
 
 Cypress.Commands.add('errorMenssageMandatoryFieldsEmpty', () => {
+    cy.clock()
     cy.get('button[type="submit"]').click() 
     cy.get('.error').should('be.visible')
+    cy.tick(3000)
+    cy.get('.error').should('not.be.visible')
 })
 
 Cypress.Commands.add('fillMandatoryFieldsAndSubmit', user => {
+    cy.clock()
     cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
     cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
     cy.get('#email').type('test@email.com').should('have.value','test@email.com') //CSS selector uses # for id and a dot for class
@@ -78,8 +98,11 @@ Cypress.Commands.add('fillMandatoryFieldsAndSubmit', user => {
     cy.get('#open-text-area').type('decription test')
     cy.contains('Enviar').click()//cy.get('button[type="submit"]').click() //'TagName[attribute="value"]' 
     cy.get('.success').should('be.visible') 
+    cy.tick(3000)
+    cy.get('.success').should('not.be.visible') 
 })
 Cypress.Commands.add('useCyContainsToClickButton', user => {
+    cy.clock()
     cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
     cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
     cy.get('#email').type('test@email.com').should('have.value','test@email.com') //CSS selector uses # for id and a dot for class
@@ -87,6 +110,8 @@ Cypress.Commands.add('useCyContainsToClickButton', user => {
     cy.get('#open-text-area').type('decription test')
     cy.contains('button', 'Enviar').click() // cy.contains('DOM element', 'label') identify the button by the label and click it 
     cy.get('.success').should('be.visible')
+    cy.tick(3000)
+    cy.get('.success').should('not.be.visible') 
 })
 
 

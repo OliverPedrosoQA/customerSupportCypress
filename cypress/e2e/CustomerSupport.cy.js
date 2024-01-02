@@ -21,7 +21,7 @@ context('App Title Validation', () => {
   it('Use Cy.contains() to indentify buttons', () => {
     cy.useCyContainsToClickButton()
   })
-  it('Applying delay 0 of Option object', function() {
+  it.only('Applying delay 0 of Option object', function() {
     cy.textFieldWithDelayZero()
   })
   it('Validating cleaning fields', function() {
