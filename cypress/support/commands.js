@@ -32,6 +32,34 @@ Cypress.Commands.add('textFieldWithDelayZero', () => {
     cy.get('.success').should('not.be.visible') 
 })
 
+Cypress.Commands.add('addLongTextToTextField', () => {
+    const longText1 = Cypress._.repeat('InputTest', 30)
+    cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')
+    cy.get('#lastName').type('LastNameTest').should('have.value','LastNameTest')
+    cy.get('#email').type('test@email.com').should('have.value','test@email.com') 
+    cy.get('#phone').type('123456789').should('have.value','123456789')
+    cy.get('#open-text-area').invoke('val', longText1)
+        .should('have.value', longText1)
+
+})
+
+Cypress.Commands.add('showAndHideErrorAndSuccessMessages', () => {
+    cy.get('.error')
+        .should('not.be.visible')
+        .invoke('show')
+        .should('be.visible')
+        .and('contain', 'Valide os campos obrigatórios!')
+        .invoke('hide')
+        .should('not.be.visible')
+    cy.get('.success')
+        .should('not.be.visible')
+        .invoke('show')
+        .should('be.visible')
+        .and('contain', 'Mensagem enviada com sucesso.')
+        .invoke('hide')
+        .should('not.be.visible')
+})
+
 Cypress.Commands.add('wrongFormatEmailErrorMessage', () => {
     cy.clock()
     cy.get('#firstName').type('FirstNameTest').should('have.value','FirstNameTest')

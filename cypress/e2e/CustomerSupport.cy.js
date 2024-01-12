@@ -12,8 +12,10 @@ context('App Title Validation', () => {
 })
 
  context('Mandatory Fields Validations', () => {
-  it('Filling out mandatory fields and submitting form', () => {
-    cy.submitFormOnlyMandatoryFields()
+  Cypress._.times(3, () => {
+    it('Filling out mandatory fields and submitting form', () => {
+      cy.submitFormOnlyMandatoryFields()
+    })
   })
   it('Filling form and submitting it', () => {
     cy.fillMandatoryFieldsAndSubmit()
@@ -21,11 +23,14 @@ context('App Title Validation', () => {
   it('Use Cy.contains() to indentify buttons', () => {
     cy.useCyContainsToClickButton()
   })
-  it.only('Applying delay 0 of Option object', function() {
+  it('Applying delay 0 of Option object', function() {
     cy.textFieldWithDelayZero()
   })
   it('Validating cleaning fields', function() {
     cy.cleaningFields()
+  })
+  it.only('Adding long text to text field with lodash repeat function', () => {
+    cy.addLongTextToTextField()
   })
 })
 
@@ -98,6 +103,9 @@ context('Error Messages Validations', () => {
   })
   it('Validating mandatory fields', function() {
     cy.errorMenssageMandatoryFieldsEmpty()
+  })
+  it('Validating error and success messages with Invoke()', () => {
+    cy.showAndHideErrorAndSuccessMessages()
   })
   })
 })
