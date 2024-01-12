@@ -29,7 +29,7 @@ context('App Title Validation', () => {
   it('Validating cleaning fields', function() {
     cy.cleaningFields()
   })
-  it.only('Adding long text to text field with lodash repeat function', () => {
+  it('Adding long text to text field with lodash repeat function', () => {
     cy.addLongTextToTextField()
   })
 })
@@ -108,4 +108,19 @@ context('Error Messages Validations', () => {
     cy.showAndHideErrorAndSuccessMessages()
   })
   })
+
+
+  context('HTTP requests', () => {
+    it('Loading main page by HTTP request', () => {
+      cy.loadCustomerSupportMainPage()
+    })
+  
+    it('Finding the cat icon challenge 1', () => {
+      cy.findingTheCatChallenge1()
+    })
+    it.only('Finding the cat icon challenge 2', () => {
+      cy.findingTheCatChallenge2()
+    })
+  })
 })
+

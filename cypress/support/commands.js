@@ -261,6 +261,32 @@ Cypress.Commands.add('accessPrivacyPageRemovingTarget', () => {
 
 })
 
+Cypress.Commands.add('loadCustomerSupportMainPage', () => {
+    cy.request('https://cac-tat.s3.eu-central-1.amazonaws.com/index.html')
+        .should(function(response) {
+            const { status, statusText, body } = response
+            expect(status).to.equal(200)
+            expect(statusText).to.equal('OK')
+            expect(body).to.include('<h1 id="title">CAC TAT</h1>')
+        })
+})
+
+Cypress.Commands.add('findingTheCatChallenge1', () => {
+    cy.request('https://cac-tat.s3.eu-central-1.amazonaws.com/index.html')
+        .should(function(response) {
+        const { status, statusText, body } = response
+        expect(status).to.equal(200)
+        expect(statusText).to.equal('OK')
+        expect(body).to.include('🐈')
+        })
+})
+
+Cypress.Commands.add('findingTheCatChallenge2', () => {
+    cy.get('#cat')
+        .invoke('show')
+        .should('be.visible')
+})
+
 //PRIVACY SPEC
 Cypress.Commands.add('testPrivacyPage', () => {
     cy.get('#title').should('be.visible', 'CAC TAT - Política de privacidade') 
